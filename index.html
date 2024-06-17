@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szuper Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .chat-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .messages {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .message {
+            margin: 5px 0;
+        }
+        .user-message {
+            text-align: right;
+            color: blue;
+        }
+        .bot-message {
+            text-align: left;
+            color: green;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="messages" id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Írj valamit...">
+    <button onclick="sendMessage()">Küldés</button>
+</div>
+
+<script>
+    function sendMessage() {
+        var userInput = document.getElementById("userInput").value;
+        if (userInput === "") return;
+
+        // Display user's message
+        var chatbox = document.getElementById("chatbox");
+        var userMessage = document.createElement("div");
+        userMessage.className = "message user-message";
+        userMessage.innerText = userInput;
+        chatbox.appendChild(userMessage);
+
+        // Generate bot response
+        var botResponse = getBotResponse(userInput);
+        var botMessage = document.createElement("div");
+        botMessage.className = "message bot-message";
+        botMessage.innerText = botResponse;
+        chatbox.appendChild(botMessage);
+
+        // Clear user input
+        document.getElementById("userInput").value = "";
+
+        // Scroll to the bottom
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function getBotResponse(input) {
+        input = input.toLowerCase();
+        
+        // Basic greetings
+        if (input.includes("hello") || input.includes("szia") || input.includes("üdv")) {
+            return "Szia! Hogy vagy?";
+        }
+        
+        // General responses
+        if (input.includes("hogy vagy")) {
+            return "Jól vagyok, köszönöm! És te?";
+        }
+        
+        if (input.includes("mi a neved")) {
+            return "Én egy chatbot vagyok, de hívhatsz bármit!";
+        }
+        
+        if (input.includes("viszlát") || input.includes("búcsú")) {
+            return "Viszlát! Szép napot!";
+        }
+
+        // Interests and hobbies
+        if (input.includes("hobby") || input.includes("hobbi")) {
+            return "Szeretem a programozást, olvasást és sportot. Neked mi a hobbid?";
+        }
+
+        if (input.includes("zene") || input.includes("dal") || input.includes("zenekar")) {
+            return "Különböző zenéket szeretek, de a rock a kedvencem. Te milyen zenét szeretsz hallgatni?";
+        }
+
+        if (input.includes("film") || input.includes("mozi") || input.includes("színész")) {
+            return "Szeretem a fantasy és sci-fi filmeket. Van kedvenc filmjeleneted?";
+        }
+
+        if (input.includes("könyv") || input.includes("olvasás")) {
+            return "Olvasni mindig jó dolog! Milyen könyvet olvasol mostanában?";
+        }
+
+        // Small talk
+        if (input.includes("időjárás")) {
+            return "Az időjárás változó, de most szép nap van. Nálatok hogy van az idő?";
+        }
+
+        if (input.includes("munka") || input.includes("munkahely") || input.includes("iskola")) {
+            return "A munka érdekes lehet! Mi a munkád vagy hol tanulsz?";
+        }
+
+        if (input.includes("sport") || input.includes("edzés") || input.includes("mozgás")) {
+            return "A sport mindig frissítő! Te milyen sportot űzöl?";
+        }
+
+        // Personal questions
+        if (input.includes("család") || input.includes("gyerek") || input.includes("barát")) {
+            return "A család és a barátok fontosak. Van közel hozzád álló személy?";
+        }
+
+        if (input.includes("utazás") || input.includes("nyaralás")) {
+            return "Az utazás izgalmas! Hol szeretsz nyaralni vagy hol jártál már?";
+        }
+
+        if (input.includes("állatok") || input.includes("háziállat")) {
+            return "Az állatok imádni valóak! Van kedvenc háziállatod?";
+        }
+
+        // Food and drink
+        if (input.includes("étel") || input.includes("ital") || input.includes("kaja")) {
+            return "Az ételek mindig jó témák! Mi a kedvenc ételed vagy italod?";
+        }
+
+        if (input.includes("kávé") || input.includes("tea")) {
+            return "A kávé és tea mindig jó választás! Melyiket szereted jobban?";
+        }
+
+        // Technology
+        if (input.includes("technológia") || input.includes("programozás") || input.includes("kódolás")) {
+            return "A technológia izgalmas terület! Programozol vagy érdeklődsz a kódolás iránt?";
+        }
+
+        if (input.includes("okostelefon") || input.includes("tablet")) {
+            return "Az okostelefonok és tabletek mindennapjaink részei! Milyen típusú eszközt használsz?";
+        }
+
+        // Default response
+        return "Elnézést, nem értem teljesen. Talán beszéljünk valami másról!";
+    }
+</script>
+
+</body>
+</html>
